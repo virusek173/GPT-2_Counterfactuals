@@ -1,0 +1,13 @@
+sess = gpt2.start_tf_sess()
+
+gpt2.finetune(sess,
+              dataset=file_name,
+              model_name='355M',
+              steps=1000,
+              restore_from='fresh',
+              run_name='run1',
+              print_every=10,
+              learning_rate=1e-5,
+              sample_every=100,
+              save_every=100
+              )
