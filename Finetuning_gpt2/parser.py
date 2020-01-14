@@ -27,21 +27,27 @@ def csv_to_raw_text():
 # csv_to_raw_text()
 
 def raw_text_to_csv():
-    path = 'gpt2_generated_raw_data/gpt2_contrfactual_generated.txt'
+    path = 'gpt2_generated_raw_data/02_gpt2_contrfactual_generated.txt'
     sentences_array = []
     new_sentences_array = []
 
     with open(path, 'r') as myfile:
         data = myfile.read()
         data = data.rstrip()
-        sentences_array = data.split(".")
+        sentences_array = data.split("====================")
         # to list sep .
         for x in sentences_array:
             # print('x: {}'.format(x))
             # print('x.rstrip(): {}'.format(x.rstrip()))
             y = re.sub('[\n]', '', x)
-            print('y: {}'.format(y))
-            new_sentences_array.append(y)
+            y_arr = y.split(".")
+            del y_arr[-1]
+            final_y = '. '.join(y_arr)
+
+            print('final_y: {}'.format(final_y))
+            if len(final_y) > 50:
+                final_y += '.'
+                new_sentences_array.append(final_y)
         # new_sentences_array = [x.rstrip() for x in sentences_array]
         
         # print('data: {}'.format(data))
@@ -61,7 +67,7 @@ def raw_text_to_csv():
 
     print('df: {}'.format(df))
 
-    file_name = 'gpt2_csv_data/gpt2_contrfactual.csv'
+    file_name = 'gpt2_csv_data/gpt2_contrfactual_final_01.csv'
     df.to_csv(file_name, index=False)
 
     # save created df as csv file
