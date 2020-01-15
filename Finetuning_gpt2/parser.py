@@ -27,7 +27,7 @@ def csv_to_raw_text():
 # csv_to_raw_text()
 
 def raw_text_to_csv():
-    path = 'gpt2_generated_raw_data/02_gpt2_contrfactual_generated.txt'
+    path = 'gpt2_generated_raw_data/gpt2_non_contrfactual_generated.txt'
     sentences_array = []
     new_sentences_array = []
 
@@ -60,14 +60,14 @@ def raw_text_to_csv():
     # add columns with values sentenceID, gold_label and sentences
 
     senIds = range(len(new_sentences_array))
-    gold_labels = [1 for _ in range(len(new_sentences_array))]
-    d = {'sentenceID': senIds, 'gold_label': gold_labels, 'sentences': new_sentences_array}
+    gold_labels = [0 for _ in range(len(new_sentences_array))]
+    d = {'sentenceID': senIds, 'gold_label': gold_labels, 'sentence': new_sentences_array}
 
     df = pd.DataFrame(data=d)
 
     print('df: {}'.format(df))
 
-    file_name = 'gpt2_csv_data/gpt2_contrfactual_final_01.csv'
+    file_name = 'gpt2_csv_data/gpt2_non_contrfactual_final.csv'
     df.to_csv(file_name, index=False)
 
     # save created df as csv file
